@@ -31,4 +31,4 @@ file_path = 'dialogues_train.txt'
 parsed = parse_dialogue_file(file_path)
 chunks = make_chunks(parsed)
 query = "Say , Jim , how about going for a few beers after dinner?"
-encode_chunks(query)
+print(encode_chunks(query))
