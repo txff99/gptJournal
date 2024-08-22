@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "ChatGPT Dialogue Parser",
+    "name": "ChatGPT Journal",
     "version": "1.0",
-    "description": "Parse and analyze ChatGPT dialogues.",
+    "description": "a tool to track past ChatGPT dialogues",
     "permissions": ["activeTab", "storage", "scripting"],
     "background": {
       "service_worker": "background.js"
@@ -11,13 +11,12 @@
       "default_popup": "popup.html",
       "default_icon": {
         "16": "icons/icon16.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
+        "48": "icons/icon48.png"
       }
     },
     "content_scripts": [
       {
-        "matches": ["<all_urls>"],
+        "matches": ["https://chatgpt.com/*"],
         "js": ["content.js"]
       }
     ]
