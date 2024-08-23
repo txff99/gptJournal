@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGPT Diary</title>
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             max-width: 300px;
+            width: 150px;
+            height: 30px;
             text-align: center;
         }
         #parse-button {
@@ -24,28 +26,39 @@
         }
         #parse-button:hover {
             background-color: #0056b3;
+            padding-bottom: 10px;
         }
         #spinner {
             display: none;
-            margin: 20px auto;
-            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 24px;
+            height: 24px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
             border-radius: 50%;
-            border-top: 4px solid #007bff;
-            width: 50px;
-            height: 50px;
             animation: spin 1s linear infinite;
+            margin: auto;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+        #popup-container {
+            margin-top: 20px; 
+        }
     </style>
 </head>
 <body>
-    <h1>ChatGPT Diary</h1>
-    <p>Click the button below to ask from your diary.</p>
     <button id="parse-button">Ask from Diary</button>
     <div id="spinner"></div>
+    <div id="popup-container"></div> 
     <script src="popup.js"></script>
 </body>
 </html>

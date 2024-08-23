@@ -1,24 +1,26 @@
 {
-    "manifest_version": 3,
-    "name": "ChatGPT Journal",
-    "version": "1.0",
-    "description": "a tool to track past ChatGPT dialogues",
-    "permissions": ["activeTab", "storage", "scripting"],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "icons/icon16.png",
-        "48": "icons/icon48.png"
-      }
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://chatgpt.com/*"],
-        "js": ["content.js"]
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "ChatGPT Journal",
+  "version": "1.0",
+  "description": "a tool to track past ChatGPT dialogues",
+  "permissions": ["activeTab", "storage", "scripting","https://chatgpt.com/*"],
+  "host_permissions": [
+    "https://chatgpt.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

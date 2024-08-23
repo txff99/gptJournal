@@ -5,7 +5,6 @@ from rest_framework import status
 import sys
 import os
 
-# Add the parent directory to sys.path
 sys.path.append(os.path.abspath('..'))
 from encoder.encoder import encode_chunk
 from db.vec_db import vector_store
