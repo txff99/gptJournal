@@ -5,13 +5,16 @@ document.getElementById('parse-button').addEventListener('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
 
-        chrome.scripting.executeScript({
-            target: { tabId: activeTab.id },
-            function: triggerParsing
+        // Send a message to the content script
+        chrome.tabs.sendMessage(activeTab.id, { action: "triggerParsing" }, (response) => {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError.message);
+            } else {
+                console.log('Parsing triggered in content script');
+            }
         });
     });
 });
-
 function triggerParsing() {
     if (typeof parseAndSendText === "function") {
         parseAndSendText();
@@ -51,8 +54,8 @@ function createPopup(data) {
             copyToPrompt(item.text, item.update_time);
         });
     });
-
 }
+
 function copyToPrompt(text, updateTime) {
     const prefix = `from ${updateTime}: `;
     const fullText = prefix + text;

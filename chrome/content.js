@@ -14,6 +14,19 @@ function parseAndSendText() {
     }
 }
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "triggerParsing") {
+        if (typeof parseAndSendText === "function") {
+            parseAndSendText();
+            sendResponse({ success: true });
+        } else {
+            console.error("parseAndSendText function is not defined.");
+            sendResponse({ success: false });
+        }
+    }
+});
+
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "append_to_prompt") {
         const textarea = document.querySelector('textarea'); // Assuming the input is a textarea

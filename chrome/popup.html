@@ -10,7 +10,7 @@
             margin: 0;
             padding: 20px;
             max-width: 300px;
-            width: 150px;
+            width: 300px;
             height: 30px;
             text-align: center;
         }
@@ -43,15 +43,40 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        #popup-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .card {
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        #popup-container {
-            margin-top: 20px; 
+
+        .card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .card button.copy-to-prompt {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .card button.copy-to-prompt:hover {
+            background-color: #218838;
         }
     </style>
 </head>

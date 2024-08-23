@@ -1,14 +1,13 @@
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "parse_and_send") {
-        // Send the text to the backend server
         fetch("https://gptjournal.normbrak.com/api/process/", {  // Replace with your server's URL
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                data: request.text, 
+                text: request.text, 
             })
         })
         .then(response => response.json())
