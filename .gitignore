@@ -4,3 +4,4 @@ __pycache__/
 *.pyd
 dialogues_train.txt
 .env
+archive/
