@@ -14,6 +14,15 @@ function parseAndSendText() {
     }
 }
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.action === "append_to_prompt") {
+        const textarea = document.querySelector('textarea'); // Assuming the input is a textarea
+        if (textarea) {
+            textarea.value += '\n' + request.text;
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    }
+});
 
 function observeChat() {
     const chatContainers = document.querySelectorAll('.flex.flex-col.text-sm');
