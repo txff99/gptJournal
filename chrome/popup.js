@@ -5,7 +5,6 @@ document.getElementById('parse-button').addEventListener('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
 
-        // Send a message to the content script
         chrome.tabs.sendMessage(activeTab.id, { action: "triggerParsing" }, (response) => {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError.message);
@@ -15,13 +14,6 @@ document.getElementById('parse-button').addEventListener('click', () => {
         });
     });
 });
-function triggerParsing() {
-    if (typeof parseAndSendText === "function") {
-        parseAndSendText();
-    } else {
-        console.error("parseAndSendText function is not available in this context.");
-    }
-}
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "show_popup") {
@@ -87,13 +79,11 @@ document.getElementById('store-dialogue-button').addEventListener('click', funct
 
 
 function showPopupMessage(message) {
-    // Create a message element
     const messageElement = document.createElement('p');
     messageElement.textContent = message;
-    messageElement.style.color = "green"; // Set text color to green for success message
+    messageElement.style.color = "green"; 
     messageElement.style.marginTop = "10px";
 
-    // Find or create a container for messages
     let messageContainer = document.getElementById('message-container');
     if (!messageContainer) {
         messageContainer = document.createElement('div');
@@ -101,7 +91,6 @@ function showPopupMessage(message) {
         document.body.appendChild(messageContainer);
     }
 
-    // Clear previous messages and add the new one
     messageContainer.innerHTML = '';
     messageContainer.appendChild(messageElement);
 }

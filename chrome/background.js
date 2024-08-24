@@ -1,7 +1,7 @@
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "parse_and_send") {
-        fetch("https://gptjournal.normbrak.com/api/process/", {  // Replace with your server's URL
+        fetch("https://gptjournal.normbrak.com/api/process/", {  
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

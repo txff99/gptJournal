@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "append_to_prompt") {
-        const textarea = document.querySelector('textarea'); // Assuming the input is a textarea
+        const textarea = document.querySelector('textarea');
         if (textarea) {
             textarea.value += '\n' + request.text;
             textarea.dispatchEvent(new Event('input', { bubbles: true }));
@@ -51,33 +51,9 @@ function findNestedArticles(startClass, targetTag) {
     return elements;
 }
 
-function parseDialogue(text) {
-    if (text) {
-        console.log("Extracted text:", text);
-        chrome.runtime.sendMessage({ action: "parse_and_send", text: text });
-    } else {
-        console.log("No text found in the response.");
-    }
-}
-
-function removeFromDatetime(text) {
-    const datetimePattern = /from\s*\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*/;;
-    return text.replace(datetimePattern, '').trim();
-}
-
-function bufferDialogue(text) {
-    
-    text = removeFromDatetime(text);
-    if (text) {
-        dialogueBuffer.push(text);
-        console.log("Buffered dialogue:", text);
-        console.log(len(dialogueBuffer));
-        if (dialogueBuffer.length >= BUFFER_SIZE_LIMIT + BUFFER_PADDING_SIZE) {
-            sendBufferedDialoguesToServer();
-        }
-    } else {
-        console.log("No text found in the response.");
-    }
+function processData(text) {
+    const datetimePattern = /from\s*\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*/;
+    return text.replace(datetimePattern, '').trim().replace(/4o mini/g, ''); 
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -87,21 +63,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         setTimeout(() => {
             const articles = findNestedArticles('.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden', '.flex.flex-col.text-sm article');
             articles.forEach(article => {
-                const textContent = article.textContent.trim(); // Use .trim() to remove extra whitespace
-                text.push(textContent); 
+                const textContent = article.textContent.trim(); 
+                text.push(processData(textContent)); 
             });
             let filteredText = text;
             if ( DIALOGUE_COUNTER > text.length){
                 filteredText = text.slice(DIALOGUE_COUNTER);
             }
             
-            
             const combinedText = filteredText.join(' ');
             chrome.runtime.sendMessage({ action: "StoreDB", text: combinedText }, (response) => {
                 sendResponse(response);
             });
-            console.log(combinedText);
-            // sendResponse({status: "success"});
         }, 2000);
         return true;
     }
