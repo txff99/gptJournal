@@ -33,8 +33,8 @@ def store_data(request):
     text = request.data.get('text', '')
     data = encode_chunk(text)
     vector_store.insert(
-            embeddings=data,
-            texts=text,
+            embeddings=[data],
+            texts=[text],
         )
     return Response({"message": "Data received successfully"}, status=status.HTTP_200_OK)
 
