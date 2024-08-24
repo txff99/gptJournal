@@ -14,7 +14,7 @@ This approach is particularly beneficial for daily interactions (like  AI girlfr
         <img src="demo.png" alt="Demo" width="400">
     </a>
 </div>
-
+v
 ## **usage**
 - install the extension under the "chrome/" folder
 - you need to type something in the prompt bar, once you finished, click the "Ask from Journal" button to retrieve dialogue
