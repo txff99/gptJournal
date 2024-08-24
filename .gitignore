@@ -5,3 +5,5 @@ __pycache__/
 dialogues_train.txt
 .env
 archive/
+server/server.log
+server/handler/logs/

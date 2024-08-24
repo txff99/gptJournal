@@ -7,6 +7,7 @@ demo link: [https://youtu.be/oZ2QSClxp1U](https://youtu.be/oZ2QSClxp1U)
 
 
 ## **usage**
+- install the extension in chrome folders
 - once the sentence is prompted into llm, click the "Ask from Journal" button to retrieve dialogue
 - click "store dialogue" to store all dialogues in current window (please don't send too much data, we don't want the database to be a mass.)
 
