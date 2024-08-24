@@ -11,7 +11,7 @@ This approach is particularly beneficial for daily interactions (like AI girlfri
 
 <div align="center">
     <a href="https://youtu.be/oZ2QSClxp1U">
-        <img src="demo.png" alt="Demo" width="400">
+        <img src="demo.png" alt="Demo" width="1000">
     </a>
 </div>
 
