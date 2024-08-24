@@ -21,8 +21,8 @@ This approach is particularly beneficial for daily interactions (like AI girlfri
 - follow the [guidelines](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) 
 about "lock and unpacked extenstion" and install the extension by selecting the "chrome/" directory as the target folder in the Chrome Extensions page.
 
-- Log in to chatgpt.com, type something in the prompt bar, and when you're done, click the "Ask from Journal" button to retrieve dialogue.
-  > **Note:** It might not work the first time for some reason, so please try again if it doesn't respond.
+- Log in to chatgpt.com, type something in the prompt bar (e.g. "do you remember the last time we went to London?"), and when you're done, click the "Ask from Journal" button to retrieve dialogue.
+  > **Note:** It normally takes 1 to 2 seconds to respond, please try again if it doesn't respond.
 
 - click "store dialogue" to store all dialogues in the current window (please don't store too much data or repeat clicking, currently we are still unable to handle redundancy.)
 
