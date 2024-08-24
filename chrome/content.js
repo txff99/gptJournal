@@ -37,63 +37,74 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-function observeChat() {
-    const chatContainers = document.querySelectorAll('.flex.flex-col.text-sm');
+let dialogueBuffer = [" ", " "];
+let DIALOGUE_COUNTER = -1;
+const BUFFER_SIZE_LIMIT = 8; 
+const BUFFER_PADDING_SIZE = 2;
 
-    if (chatContainers.length > 0) {
-        chatContainers.forEach(container => {
-            const observer = new MutationObserver((mutationsList) => {
-                for (const mutation of mutationsList) {
-                    if (mutation.type === 'childList') {
-                        // Detect when a new message is added
-                        console.log("line add");
-                        const newMessages = mutation.addedNodes;
-                        if (newMessages.length > 0) {
-                            // Automatically parse the last response in the chat when GPT finishes generating
-                            const lastMessage = newMessages[newMessages.length - 1];
-
-                            if (lastMessage && lastMessage.querySelector('.flex.flex-col.text-sm')) {
-                                // Wait until the message stops changing (finished generating)
-                                waitForCompletion(lastMessage.querySelector('.flex.flex-col.text-sm'));
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Start observing each chat container for new messages
-            observer.observe(container, { childList: true, subtree: true });
-        });
-    } else {
-        console.error("Chat containers not found.");
+function findNestedArticles(startClass, targetTag) {
+    let elements = document.querySelectorAll(startClass);
+    while (elements.length > 0 && targetTag) {
+      elements = Array.from(elements).flatMap(el => Array.from(el.querySelectorAll(targetTag)));
+      targetTag = null;
     }
-}
-
-// Function to wait until the response generation is complete
-function waitForCompletion(element) {
-    const checkInterval = 100; // Check every 100ms
-    let lastContent = "";
-
-    const intervalId = setInterval(() => {
-        const currentContent = element.textContent;
-
-        // Check if the content has stopped updating (i.e., GPT finished generating)
-        if (currentContent === lastContent) {
-            clearInterval(intervalId);
-            parseDialogue(currentContent);
-        } else {
-            lastContent = currentContent;
-        }
-    }, checkInterval);
+    return elements;
 }
 
 function parseDialogue(text) {
     if (text) {
-        // Send the text to the background script
-        console.log(text);
+        console.log("Extracted text:", text);
         chrome.runtime.sendMessage({ action: "parse_and_send", text: text });
     } else {
         console.log("No text found in the response.");
     }
 }
+
+function removeFromDatetime(text) {
+    const datetimePattern = /from\s*\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*/;;
+    return text.replace(datetimePattern, '').trim();
+}
+
+function bufferDialogue(text) {
+    
+    text = removeFromDatetime(text);
+    if (text) {
+        dialogueBuffer.push(text);
+        console.log("Buffered dialogue:", text);
+        console.log(len(dialogueBuffer));
+        if (dialogueBuffer.length >= BUFFER_SIZE_LIMIT + BUFFER_PADDING_SIZE) {
+            sendBufferedDialoguesToServer();
+        }
+    } else {
+        console.log("No text found in the response.");
+    }
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "StoreDialogue") {
+        let text = [];
+
+        setTimeout(() => {
+            const articles = findNestedArticles('.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden', '.flex.flex-col.text-sm article');
+            articles.forEach(article => {
+                const textContent = article.textContent.trim(); // Use .trim() to remove extra whitespace
+                text.push(textContent); 
+            });
+            let filteredText = text;
+            if ( DIALOGUE_COUNTER > text.length){
+                filteredText = text.slice(DIALOGUE_COUNTER);
+            }
+            
+            
+            const combinedText = filteredText.join(' ');
+            chrome.runtime.sendMessage({ action: "StoreDB", text: combinedText }, (response) => {
+                sendResponse(response);
+            });
+            console.log(combinedText);
+            // sendResponse({status: "success"});
+        }, 2000);
+        return true;
+    }
+});
+
 
