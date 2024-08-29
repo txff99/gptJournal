@@ -19,17 +19,26 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "show_popup") {
         const parseButton = document.getElementById('parse-button');
         const spinner = document.getElementById('spinner');
-        
+
         parseButton.style.display = 'block';
         spinner.style.display = 'none';
         
         createPopup(request.data);
+    }
+    if (request.action === "pop_msg"){
+        const parseButton = document.getElementById('parse-button');
+        const spinner = document.getElementById('spinner');
+
+        parseButton.style.display = 'block';
+        spinner.style.display = 'none';
+        showPopupMessage(request.text);
     }
 });
 
 
 function createPopup(data) {
     const container = document.getElementById('popup-container');
+    container.style.display = 'block';
     container.innerHTML = ''; 
 
     data.forEach(item => {
@@ -57,32 +66,15 @@ function copyToPrompt(text, updateTime) {
 }
 
 document.getElementById('store-dialogue-button').addEventListener('click', function() {
-    document.getElementById('parse-button').style.display = 'none';
-    document.getElementById('store-dialogue-button').style.display = 'none';
-    document.getElementById('spinner').style.display = 'block';
-
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "StoreDialogue"}, function(response) {
-            document.getElementById('parse-button').style.display = 'block';
-            document.getElementById('store-dialogue-button').style.display = 'block';
-            document.getElementById('spinner').style.display = 'none';
-            if (response && response.status === "success") {
-                console.log(response);
-                showPopupMessage("Dialogue stored successfully!");
-            } else {
-                console.log(response);
-                showPopupMessage("Failed to store dialogue.");
-            }
-        });
-    });
+    showPopupMessage('To protect user privacy, this function is disabled for now')
 });
 
 
 function showPopupMessage(message) {
     const messageElement = document.createElement('p');
     messageElement.textContent = message;
-    messageElement.style.color = "green"; 
-    messageElement.style.marginTop = "10px";
+    messageElement.style.color = "red"; 
+    messageElement.style.marginTop = "-10px";
 
     let messageContainer = document.getElementById('message-container');
     if (!messageContainer) {

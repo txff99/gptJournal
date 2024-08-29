@@ -1,13 +1,12 @@
 function parseAndSendText() {
     const inputTextarea = document.getElementById('prompt-textarea');
-
     if (inputTextarea) {
         const promptText = inputTextarea.value;
         if (promptText) {   
-            console.log(promptText);
             chrome.runtime.sendMessage({ action: "parse_and_send", text: promptText });
         } else {
-            console.log("No text found in the prompt window.");
+            msg = "Please fill in text in the prompt bar";
+            chrome.runtime.sendMessage({ action: "pop_msg", text: msg });
         }
     } else {
         console.error("Input textarea not found.");
