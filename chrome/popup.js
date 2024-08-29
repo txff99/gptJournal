@@ -18,10 +18,10 @@ document.getElementById('parse-button').addEventListener('click', () => {
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    const parseButton = document.getElementById('parse-button');
+    const spinner = document.getElementById('spinner');
+    const spinner_msg = document.getElementById('spinner-message');
     if (request.action === "show_popup") {
-        const parseButton = document.getElementById('parse-button');
-        const spinner = document.getElementById('spinner');
-        const spinner_msg = document.getElementById('spinner-message');
 
 
         parseButton.style.display = 'block';
@@ -32,9 +32,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         createPopup(request.data);
     }
     if (request.action === "pop_msg"){
-        const parseButton = document.getElementById('parse-button');
-        const spinner = document.getElementById('spinner-container');
-
         parseButton.style.display = 'block';
         spinner.style.display = 'none';
         spinner_msg.style.display = 'none';
