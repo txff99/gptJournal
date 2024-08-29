@@ -1,10 +1,12 @@
 document.getElementById('parse-button').addEventListener('click', () => {
     document.getElementById('parse-button').style.display = 'none';
     document.getElementById('spinner').style.display = 'block';
+    document.getElementById('spinner-message').style.display = 'block'; 
 
+    
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
-
+        
         chrome.tabs.sendMessage(activeTab.id, { action: "triggerParsing" }, (response) => {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError.message);
@@ -19,18 +21,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "show_popup") {
         const parseButton = document.getElementById('parse-button');
         const spinner = document.getElementById('spinner');
+        const spinner_msg = document.getElementById('spinner-message');
+
 
         parseButton.style.display = 'block';
         spinner.style.display = 'none';
+        spinner_msg.style.display = 'none';
+        
         
         createPopup(request.data);
     }
     if (request.action === "pop_msg"){
         const parseButton = document.getElementById('parse-button');
-        const spinner = document.getElementById('spinner');
+        const spinner = document.getElementById('spinner-container');
 
         parseButton.style.display = 'block';
         spinner.style.display = 'none';
+        spinner_msg.style.display = 'none';
+        
         showPopupMessage(request.text);
     }
 });

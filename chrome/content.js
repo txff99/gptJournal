@@ -5,7 +5,7 @@ function parseAndSendText() {
         if (promptText) {   
             chrome.runtime.sendMessage({ action: "parse_and_send", text: promptText });
         } else {
-            msg = "Please fill in text in the prompt bar";
+            msg = "Please fill in some text in the prompt bar";
             chrome.runtime.sendMessage({ action: "pop_msg", text: msg });
         }
     } else {

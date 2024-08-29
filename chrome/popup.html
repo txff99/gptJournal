@@ -11,11 +11,44 @@
             padding: 20px;
             max-width: 320px;
             width: 300px;
-            height: 100px;
+            height: auto; /* Adjust height to auto for better content handling */
             text-align: center;
             background-color: #f9f9f9;
         }
 
+        #description {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+            text-align: left; /* Align text to the left */
+        }
+
+        #description h2 {
+            font-size: 18px;
+            margin-top: 0;
+            color: #007bff;
+            text-align: left; /* Align heading to the left */
+        }
+
+        #description p {
+            margin: 10px 0;
+        }
+
+        #description a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #description a:hover {
+            text-decoration: underline;
+        }
         #parse-button, #store-dialogue-button {
             background-color: #007bff;
             color: white;
@@ -34,6 +67,10 @@
             transform: translateY(-2px);
         }
 
+        #spinner-container {
+            text-align: center;
+        }
+
         #spinner {
             display: none;
             width: 32px;
@@ -43,14 +80,23 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 20px auto;
-            margin-top: -0px;
+        }
+
+        #spinner-message {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+            display: none; 
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            padding: 0 10px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         #popup-container {
             display: none;
             flex-direction: column;
@@ -90,9 +136,16 @@
     </style>
 </head>
 <body>
+    <div id="description">
+        <h2>Welcome to ChatGPT Diary</h2>
+        <p>Interact with the dialogues in the <a href="https://paperswithcode.com/dataset/dailydialog" target="_blank">DailyDialogue</a> dataset and store your own data for future reference. Use the buttons below to ask from the journal or store new dialogues.</p>
+    </div>
     <button id="parse-button">Ask from Journal</button>
     <button id="store-dialogue-button">Store Dialogue</button>
-    <div id="spinner"></div>
+    <div id="spinner-container">
+        <div id="spinner"></div>
+        <p id="spinner-message">If it's not responding in 5 seconds, please try again.</p>
+    </div>
     <div id="popup-container"></div> 
     <script src="popup.js"></script>
 </body>
