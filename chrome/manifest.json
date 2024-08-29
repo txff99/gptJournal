@@ -3,7 +3,7 @@
   "name": "ChatGPT Journal",
   "version": "1.0",
   "description": "a tool to track past ChatGPT dialogues",
-  "permissions": ["activeTab", "storage", "scripting","https://chatgpt.com/*"],
+  "permissions": ["activeTab","https://chatgpt.com/*"],
   "host_permissions": [
     "https://chatgpt.com/*"
   ],
