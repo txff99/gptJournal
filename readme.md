@@ -15,11 +15,22 @@ This approach is particularly beneficial for daily interactions, where conversat
     </a>
 </div>
 
-## **usage**
-- the product now works as a chrome extension so make sure you have a chrome browser
-- download the "chrome/" folder in our repository
-- follow the [guidelines](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) 
-about "lock and unpacked extenstion" and install the extension by selecting the "chrome/" directory as the target folder in the Chrome Extensions page.
+# **Install**
+
+## Manual Load
+
+
+- Ensure you have a Chrome browser installed.
+- Download the `chrome/` folder from our repository.
+- Follow the [Chrome extension guidelines](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) to load an unpacked extension.
+- Install the extension by selecting the `chrome/` directory as the target folder in the Chrome Extensions page.
+
+## Try It from Google Web Store
+
+- You can also install the extension directly from the Google Web Store: [ChatGPT Journal](https://chromewebstore.google.com/detail/chatgpt-journal/flngjgnfpjcnemdenfbonkfjiecjmbgp)
+
+
+# **Usage**
 
 - Log in to chatgpt.com, type something in the prompt bar (e.g. "do you remember the last time we went to London?"), and when you're done, click the "Ask from Journal" button to retrieve dialogue.
   > **Note:** It normally takes 1 to 2 seconds to respond, please try again if it doesn't respond.
