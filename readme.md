@@ -15,9 +15,9 @@ This approach is particularly beneficial for daily interactions, where conversat
     </a>
 </div>
 
-# **Install**
+## **Install**
 
-## Manual Load
+### Manual Load
 
 
 - Ensure you have a Chrome browser installed.
@@ -25,12 +25,12 @@ This approach is particularly beneficial for daily interactions, where conversat
 - Follow the [Chrome extension guidelines](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) to load an unpacked extension.
 - Install the extension by selecting the `chrome/` directory as the target folder in the Chrome Extensions page.
 
-## Try It from Google Web Store
+### Try It from Google Web Store
 
 - You can also install the extension directly from the Google Web Store: [ChatGPT Journal](https://chromewebstore.google.com/detail/chatgpt-journal/flngjgnfpjcnemdenfbonkfjiecjmbgp)
 
 
-# **Usage**
+## **Usage**
 
 - Log in to chatgpt.com, type something in the prompt bar (e.g. "do you remember the last time we went to London?"), and when you're done, click the "Ask from Journal" button to retrieve dialogue.
   > **Note:** It normally takes 1 to 2 seconds to respond, please try again if it doesn't respond.
