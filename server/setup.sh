@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # to start
-python manage.py runserver
+nohup python manage.py runserver >> server.log 2>&1 &

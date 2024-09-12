@@ -10,7 +10,6 @@ from encoder.encoder import encode_chunk
 from db.vec_db import vector_store
 
 def fetch(data):
-    """ retrieve from db """
     chunks = vector_store.query(data, k=3)
     resp = []
     for chunk in chunks:
@@ -23,18 +22,17 @@ def fetch(data):
 
 @api_view(['POST'])
 def process_data(request):
-    """ encode to embedding """
     data = encode_chunk(request.data.get('text',''))
     resp = fetch(data)
     return Response(resp, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def store_data(request):
-    text = request.data.get('text', '')
-    data = encode_chunk(text)
-    vector_store.insert(
-            embeddings=[data],
-            texts=[text],
-        )
+    # text = request.data.get('text', '')
+    # data = encode_chunk(text)
+    # vector_store.insert(
+    #         embeddings=[data],
+    #         texts=[text],
+    #     )
     return Response({"message": "Data received successfully"}, status=status.HTTP_200_OK)
 
